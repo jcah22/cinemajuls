@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+
+
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Pelicula | CineTrailer</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+    <style>
+        form .invalid-feedback {
+            display: block;
+        }
+
+    </style>
+
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">CinemaTrailer</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="/">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/peliculas">Peliculas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">Administracion</a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<div class="container" layout:fragment="content">
+    <h2>Editar Pelicula</h2>
+
+    <form action="" method="post" th:object="${pelicula}" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="titulo" class="form-label">Titulo</label>
+            <input id="titulo" type="text" placeholder="Titulo" class="form-control" th:field="*{titulo}">
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('titulo')}"
+                 th:errors="*{titulo}">
+            </div>
+
+        </div>
+
+        <div class="mb-3">
+            <label for="sinopsis" class="form-label">Sinopsis</label>
+            <textarea id="sinopsis" placeholder="Sinopsis" class="form-control" th:field="*{sinopsis}"></textarea>
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('sinopsis')}"
+                 th:errors="*{sinopsis}">
+            </div>
+
+        </div>
+
+
+        <div class="mb-3">
+            <label for="fechaEstreno" class="form-label">Fecha de estreno</label>
+            <input id="fechaEstreno" type="date" class="form-control"
+                   th:field="*{fechaEstreno}">
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('fechaEstreno')}"
+                 th:errors="*{fechaEstreno}"></div>
+        </div>
+
+
+        <div class="mb-3">
+            <label for="youtubeTrailerId" class="form-label">Youtube Trailer Id</label>
+            <input id="youtubeTrailerId" type="text" placeholder="youtubeTrailerId" class="form-control"
+                   th:field="*{youtubeTrailerId}">
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('youtubeTrailerId')}"
+                 th:errors="*{youtubeTrailerId}">
+            </div>
+
+        </div>
+
+
+        <div class="mb-3">
+            <label for="portada" class="form-label">Portada</label>
+            <input id="portada" name="portada" type="file" class="form-control">
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('portada')}"
+                 th:errors="*{portada}">
+            </div>
+
+        </div>
+
+
+        <div class="mb-3">
+            <label for="generos" class="form-label">Genero</label>
+            <select id="generos" class="form-control select2" th:field="*{generos}" multiple>
+                <option th:each="genero : ${generos}" th:value="${genero.id}" th:text="${genero.titulo}">
+
+                </option>
+            </select>
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('generos')}"
+                 th:errors="*{generos}">
+            </div>
+
+        </div>
+
+
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+
+    </form>
+
+
+</div>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+<script
+        src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.select2').select2();
+    });
+</script>
+
+<div layout:fragment="scripts" th:remove="tag"></div>
+
+<script>
+    function eliminarPelicula(id){
+        if(!confirm('Estas seguro de eliminar esta pelicula?')){
+            return;
+        }
+        $('#eliminarPeliculaForm' + id).submit();
+    }
+</script>
+</body>
+</html>
